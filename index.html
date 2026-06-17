@@ -1,219 +1,216 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="bg-[#0F172A]">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>公考面试AI模拟</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','PingFang SC','Microsoft YaHei', 'sans-serif'] },
+      animation: {
+        'breathe': 'breathe 2.5s ease-in-out infinite',
+        'fadeIn': 'fadeIn 0.4s ease-out',
+        'pulse-slow': 'pulse 3s ease-in-out infinite'
+      },
+      keyframes: {
+        breathe: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(167,139,250,0.3), 0 0 60px rgba(167,139,250,0.1)' },
+          '50%': { boxShadow: '0 0 35px rgba(167,139,250,0.5), 0 0 90px rgba(167,139,250,0.2)' }
+        },
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        }
+      }
+    }
+  }
+}
+</script>
 <style>
-:root {
-  --bg: #0a0a1a; --card: #13132b; --card2: #1a1a3e;
-  --accent: #6366f1; --accent2: #a855f7; --green: #10b981; --red: #ef4444;
-  --text: #e8ecff; --sub: #8892b0; --border: rgba(99,102,241,.12);
-  --shadow: 0 4px 32px rgba(0,0,0,.4); --radius: 18px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased;
-  line-height: 1.6; min-height: 100vh;
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,.12), transparent),
-                    radial-gradient(ellipse 40% 40% at 100% 100%, rgba(168,85,247,.06), transparent);
-  background-attachment: fixed;
-}
-
-/* Nav */
-.nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,10,26,.85); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 0 24px;
-}
-.nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 54px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; font-size: .92em; font-weight: 700; letter-spacing: -.2px; }
-.nav-logo .diamond {
-  width: 30px; height: 30px; background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 8px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 18px rgba(99,102,241,.35);
-}
-.nav-logo .diamond span { transform: rotate(-45deg); font-size: .85em; }
-.nav-badge {
-  font-size: .65em; padding: 4px 12px; border-radius: 20px;
-  background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.2); color: #a5b4fc;
-}
-
-.hero { text-align: center; padding: 48px 24px 20px; }
-.hero h1 { font-size: 1.8em; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg,#c7d2fe,#e9d5ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.hero p { font-size: .88em; color: var(--sub); margin-top: 6px; }
-
-.main { max-width: 700px; margin: 0 auto; padding: 0 20px 40px; }
-
-/* Type Pills */
-.types-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
-.type-btn {
-  padding: 8px 16px; border-radius: 20px; font-size: .75em; font-weight: 600;
-  cursor: pointer; border: 1px solid var(--border); background: var(--card);
-  color: var(--sub); transition: all .25s; letter-spacing: -.1px;
-}
-.type-btn:hover { border-color: var(--accent); color: var(--text); background: var(--card2); }
-.type-btn.active { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: #fff; border-color: transparent; box-shadow: 0 4px 16px rgba(99,102,241,.25); }
-
-/* Question Card */
-.q-card {
-  background: var(--card); border-radius: var(--radius); padding: 28px 24px;
-  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 24px;
-  position: relative; overflow: hidden;
-}
-.q-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
-.q-card .q-label { font-size: .65em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
-.q-card .q-text { font-size: 1.05em; font-weight: 600; line-height: 1.8; text-align: center; }
-.q-card .q-type { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: .65em; font-weight: 600; margin-top: 10px; background: rgba(99,102,241,.12); color: #a5b4fc; }
-
-/* Mic Circle */
-.mic-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
-.mic-ring {
-  width: 120px; height: 120px; border-radius: 50%; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; transition: all .4s cubic-bezier(.25,.1,.25,1);
-  background: var(--card); border: 3px solid var(--border); box-shadow: var(--shadow);
-  position: relative;
-}
-.mic-ring::after {
-  content: ''; position: absolute; inset: -6px; border-radius: 50%;
-  border: 2px solid transparent; transition: all .5s;
-}
-.mic-ring:hover { transform: scale(1.04); border-color: var(--accent); }
-.mic-ring.listening {
-  border-color: var(--red);
-  background: rgba(239,68,68,.08);
-}
-.mic-ring.listening::after {
-  border-color: rgba(239,68,68,.3);
-  animation: micGlow 1.5s ease-in-out infinite;
-}
-@keyframes micGlow {
-  0%,100% { inset: -6px; opacity: 1; }
-  50% { inset: -18px; opacity: 0; }
-}
-.mic-icon { font-size: 2.6em; transition: all .3s; }
-.mic-ring.listening .mic-icon { animation: micBeat .8s ease-in-out infinite; }
-@keyframes micBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); color: var(--red); } }
-.mic-label { font-size: .8em; color: var(--sub); margin-top: 12px; transition: .3s; font-weight: 500; }
-.mic-label.recording { color: var(--red); font-weight: 600; }
-.mic-timer { font-size: 1.1em; font-weight: 700; color: var(--accent); margin-top: 4px; font-variant-numeric: tabular-nums; font-family: 'SF Mono','Consolas',monospace; }
-
-/* Answer Box */
-.answer-box {
-  background: var(--card); border-radius: var(--radius); padding: 22px;
-  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px;
-  min-height: 120px; font-size: .9em; line-height: 1.9; outline: none;
-  transition: border-color .3s; word-break: break-word;
-}
-.answer-box:focus { border-color: var(--accent); }
-.answer-box:empty::before { content: '你的语音回答将自动显示在这里...\a也可以手动输入或编辑'; white-space:pre; color: #4a5080; }
-
-/* Buttons */
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
-.btn {
-  padding: 12px 24px; border-radius: 24px; font-size: .85em; font-weight: 700;
-  cursor: pointer; border: 0; transition: all .3s cubic-bezier(.25,.1,.25,1);
-  display: inline-flex; align-items: center; gap: 6px; letter-spacing: -.1px;
-}
-.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 4px 18px rgba(99,102,241,.3); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,.4); }
-.btn-primary:disabled { opacity: .35; cursor: not-allowed; transform: none; }
-.btn-ghost {
-  background: transparent; border: 1px solid var(--border); color: var(--sub);
-}
-.btn-ghost:hover { border-color: var(--accent); color: var(--text); background: rgba(99,102,241,.05); }
-
-/* Feedback */
-.feedback {
-  background: var(--card); border-radius: var(--radius); padding: 24px;
-  border: 1px solid var(--border); box-shadow: var(--shadow);
-  animation: fadeUp .4s ease;
-}
-@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-.feedback h3 { font-size: .95em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.fb-content { font-size: .87em; line-height: 1.9; color: #c0c8e0; }
-.fb-content strong { color: #fff; }
-.fb-content br + strong { display: block; margin-top: 16px; }
-.score-tag { display: inline-block; padding: 2px 12px; border-radius: 10px; font-weight: 700; font-size: .9em; margin: 2px; }
-.score-h { background: rgba(16,185,129,.15); color: #34d399; }
-.score-m { background: rgba(251,191,36,.15); color: #fbbf24; }
-.score-l { background: rgba(239,68,68,.15); color: #f87171; }
-
-/* Loading Dots */
-.loading-dots { display: flex; gap: 6px; justify-content: center; padding: 30px; }
-.loading-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: ld 1.4s infinite; }
-.loading-dots span:nth-child(2) { animation-delay: .2s; } .loading-dots span:nth-child(3) { animation-delay: .4s; }
-@keyframes ld { 0%,60%,100% { opacity: .3; transform: scale(.8); } 30% { opacity: 1; transform: scale(1.2); } }
-
-.footer { text-align: center; padding: 40px 20px; color: var(--sub); font-size: .65em; }
-
-@media (max-width: 600px) {
-  .hero h1 { font-size: 1.4em; }
-  .mic-ring { width: 100px; height: 100px; }
-  .mic-icon { font-size: 2.2em; }
-}
+  body {
+    background: #0F172A;
+    background-image:
+      radial-gradient(ellipse 50% 60% at 50% 0%, rgba(79,70,229,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 100%, rgba(124,58,237,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(167,139,250,0.03) 0%, transparent 30%);
+    background-attachment: fixed;
+  }
+  .glass {
+    background: rgba(30, 41, 59, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(167, 139, 250, 0.12);
+  }
+  .glass-card {
+    background: rgba(30, 41, 59, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(167, 139, 250, 0.1);
+    box-shadow: 0 4px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.03);
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #A78BFA, #818CF8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-btn {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    box-shadow: 0 4px 16px rgba(79,70,229,.25);
+  }
+  .gradient-btn:hover {
+    box-shadow: 0 6px 24px rgba(79,70,229,.4);
+  }
+  .gradient-border:focus-within {
+    border-color: transparent;
+    background-image: linear-gradient(#1E293B, #1E293B), linear-gradient(135deg, #4F46E5, #7C3AED);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+  textarea:focus, [contenteditable]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(167,139,250,.25);
+  }
+  .tag-active {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(79,70,229,.3);
+  }
+  @keyframes subtleGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(167,139,250,.2), 0 0 40px rgba(167,139,250,.06); }
+    50% { box-shadow: 0 0 25px rgba(167,139,250,.35), 0 0 70px rgba(167,139,250,.12); }
+  }
+  .mic-glow { animation: subtleGlow 3s ease-in-out infinite; }
+  .mic-ring {
+    width: 152px; height: 152px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(79,70,229,.3), rgba(124,58,237,.2));
+    border: 2px solid rgba(167,139,250,.25);
+    cursor: pointer; transition: all .25s ease;
+    position: relative;
+  }
+  .mic-ring:hover { transform: scale(1.05); }
+  .mic-ring.listening {
+    border-color: rgba(239,68,68,.5);
+    background: linear-gradient(135deg, rgba(239,68,68,.15), rgba(220,38,38,.1));
+    animation: breathe 2.5s ease-in-out infinite;
+  }
+  .mic-ring.listening .mic-inner {
+    animation: micPulse 1s ease-in-out infinite;
+  }
+  @keyframes micPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .mic-inner {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem; transition: all .25s ease;
+    box-shadow: 0 0 30px rgba(79,70,229,.3);
+  }
+  input[type="range"] { -webkit-appearance: none; height: 6px; border-radius: 3px; background: rgba(167,139,250,.2); outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #A78BFA; cursor: pointer; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(167,139,250,.15); border-radius: 2px; }
 </style>
 </head>
-<body>
+<body class="font-sans antialiased min-h-screen flex flex-col">
 
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-logo"><div class="diamond"><span>🎯</span></div>公考面试AI模拟</div>
-    <span class="nav-badge">AI考官 · 语音作答</span>
+<!-- ============ TOP NAV ============ -->
+<nav class="sticky top-0 z-50 glass border-b border-purple-500/10">
+  <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm shadow-lg shadow-indigo-500/20">🎯</div>
+      <span class="text-white font-bold text-[0.95rem] tracking-tight">公考面试AI模拟</span>
+    </div>
+    <button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[0.75rem] font-semibold text-purple-200 bg-purple-500/10 border border-purple-400/15 hover:bg-purple-500/20 hover:text-white transition-all duration-300">
+      🎤 AI考官 · 语音作答
+    </button>
   </div>
 </nav>
 
-<section class="hero">
-  <h1>AI 模拟公考面试</h1>
-  <p>点击麦克风开始作答 · AI 实时转文字 · 提交后智能打分</p>
-</section>
-
-<div class="main">
-
-  <div class="types-row">
-    <button class="type-btn active" onclick="pickTopic('all',this)">🎲 随机出题</button>
-    <button class="type-btn" onclick="pickTopic('综合分析',this)">💡 综合分析</button>
-    <button class="type-btn" onclick="pickTopic('组织管理',this)">📋 组织管理</button>
-    <button class="type-btn" onclick="pickTopic('应急应变',this)">⚡ 应急应变</button>
-    <button class="type-btn" onclick="pickTopic('人际关系',this)">🤝 人际关系</button>
-    <button class="type-btn" onclick="pickTopic('岗位匹配',this)">🎯 岗位匹配</button>
+<!-- ============ TYPE TAGS ============ -->
+<div class="max-w-4xl mx-auto px-6 pt-6 pb-3">
+  <div class="flex flex-wrap justify-center gap-2.5">
+    <button class="tag-btn tag-active px-5 py-2 rounded-xl text-[0.78rem] font-semibold border border-transparent transition-all duration-300 hover:scale-[1.03]" onclick="pickTopic('all',this)">🎲 随机出题</button>
+    <button class="tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300" onclick="pickTopic('综合分析',this)">💡 综合分析</button>
+    <button class="tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300" onclick="pickTopic('组织管理',this)">📋 组织管理</button>
+    <button class="tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300" onclick="pickTopic('应急应变',this)">⚡ 应急应变</button>
+    <button class="tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300" onclick="pickTopic('人际关系',this)">🤝 人际关系</button>
+    <button class="tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300" onclick="pickTopic('岗位匹配',this)">🎯 岗位匹配</button>
   </div>
+</div>
 
-  <div class="q-card">
-    <div class="q-label">📝 面试题目</div>
-    <div class="q-text" id="questionText">点击上方按钮抽取一道面试题</div>
-    <div class="q-type" id="questionType" style="display:none"></div>
-  </div>
+<!-- ============ MAIN CONTENT ============ -->
+<main class="flex-1 max-w-3xl mx-auto px-6 w-full pb-12">
 
-  <div class="mic-wrap">
-    <div class="mic-ring" id="micBtn" onclick="toggleMic()">
-      <span class="mic-icon">🎤</span>
+  <!-- Question Card -->
+  <div class="glass-card rounded-2xl p-7 mb-7 w-full animate-fadeIn relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400/40 to-transparent"></div>
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-amber-400 text-sm">📝</span>
+      <span id="questionType" class="text-[0.7rem] font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 px-3 py-1 rounded-md" style="display:none"></span>
     </div>
-    <div class="mic-label" id="micLabel">点击麦克风开始作答</div>
-    <div class="mic-timer" id="timer" style="display:none">00:00</div>
+    <p id="questionText" class="text-white text-[1.15rem] font-semibold leading-relaxed text-center tracking-tight">点击上方按钮抽取一道面试题</p>
+    <div class="text-center mt-3">
+      <span class="text-[0.65rem] text-slate-500 uppercase tracking-wider">面试模拟</span>
+    </div>
   </div>
 
-  <div class="answer-box" id="answerBox" contenteditable="true"></div>
+  <!-- Mic Circle -->
+  <div class="flex flex-col items-center mb-6">
+    <div class="mic-ring mic-glow" id="micBtn" onclick="toggleMic()">
+      <div class="mic-inner">🎤</div>
+    </div>
+    <p class="mt-4 text-[0.82rem] text-slate-400 font-medium" id="micLabel">点击麦克风开始作答</p>
+    <p class="mt-1 text-[1.1rem] font-bold text-purple-400 tabular-nums" id="timer" style="display:none">00:00</p>
+  </div>
 
-  <div class="btn-row">
-    <button class="btn btn-primary" id="btnSubmit" onclick="submitAnswer()">
+  <!-- Answer Box -->
+  <div class="glass-card rounded-2xl p-6 mb-6 transition-all duration-300 gradient-border">
+    <div id="answerBox" contenteditable="true"
+         class="min-h-[130px] text-[0.9rem] text-slate-200 leading-relaxed outline-none w-full whitespace-pre-wrap break-words"
+         placeholder="你的语音回答将自动显示在这里，也可以手动输入或编辑"></div>
+    <style>
+      #answerBox:empty::before { content: '你的语音回答将自动显示在这里，也可以手动输入或编辑'; color: #64748B; }
+    </style>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex justify-center gap-4 flex-wrap">
+    <button id="btnSubmit" onclick="submitAnswer()"
+            class="gradient-btn flex items-center gap-2 px-8 py-3 rounded-xl text-[0.88rem] font-bold text-white transition-all duration-300 hover:-translate-y-0.5">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       提交 · AI 点评
     </button>
-    <button class="btn btn-ghost" onclick="clearAnswer()">🗑️ 清空</button>
-    <button class="btn btn-ghost" onclick="pickTopic('all')">🔄 换题</button>
+    <button onclick="clearAnswer()"
+            class="glass flex items-center gap-2 px-7 py-3 rounded-xl text-[0.85rem] font-semibold text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 border border-white/5">
+      🗑️ 清空
+    </button>
+    <button onclick="pickTopic('all')"
+            class="glass flex items-center gap-2 px-7 py-3 rounded-xl text-[0.85rem] font-semibold text-purple-300 hover:text-purple-200 hover:bg-purple-500/10 transition-all duration-300 border border-white/5">
+      🔄 换题
+    </button>
   </div>
 
-  <div class="feedback" id="feedbackCard" style="display:none">
-    <h3>🤖 AI 考官点评</h3>
-    <div class="fb-content" id="feedbackContent"></div>
+  <!-- Feedback -->
+  <div id="feedbackCard" class="glass-card rounded-2xl p-7 mt-8 animate-fadeIn" style="display:none">
+    <h3 class="text-white font-bold text-[1rem] mb-5 flex items-center gap-2">🤖 AI 考官点评</h3>
+    <div id="feedbackContent" class="text-[0.87rem] text-slate-300 leading-loose"></div>
   </div>
 
-</div>
+</main>
 
-<div class="footer">AI 考官由 DeepSeek 驱动 · 仅供练习参考 · 不代表真实面试评分标准</div>
+<!-- ============ FOOTER ============ -->
+<footer class="text-center py-8 text-[0.68rem] text-slate-600 tracking-wide">
+  AI考官由DeepSeek驱动 · 仅供练习参考 · 不代表真实面试评分标准
+</footer>
 
+<!-- ============ SCRIPTS ============ -->
 <script>
 const API_KEY = 'sk-0541b3112cd44ec18041c235d380affc';
 const API_URL = 'https://api.deepseek.com/chat/completions';
@@ -223,7 +220,7 @@ const QUESTIONS = {
     '有人说"公务员是铁饭碗"，也有人说"公务员要有本领恐慌"。请谈谈你的理解。',
     '近期多地推行"数字政府"建设，但部分老年人反映办事更难了。你怎么看？',
     '基层干部常说"上面千条线，下面一根针"。请谈谈你对基层工作特点的认识。',
-    '"躺平"成为网络热词，部分年轻人选择不婚不育不奋斗。你作为公务员怎么看？',
+    '"躺平"成为网络热词，部分年轻人选择不结婚不生子不奋斗。你作为公务员怎么看？',
     '对于当前部分地区存在的"面子工程""形象工程"，你怎么看？应如何解决？',
   ],
   '组织管理': [
@@ -270,7 +267,7 @@ if (hasSpeech) {
   recognition.onerror = function(e) { if (e.error !== 'no-speech' && e.error !== 'aborted') { stopMic(); } };
   recognition.onend = function() { if (isListening) { try { recognition.start(); } catch(e) { stopMic(); } } };
 } else {
-  document.getElementById('micBtn').style.display = 'none';
+  document.getElementById('micBtn').style.opacity = '0.4';
   document.getElementById('micLabel').textContent = '浏览器不支持语音，请手动输入';
 }
 
@@ -280,7 +277,6 @@ function startMic() {
     recognition.start(); isListening = true; seconds = 0;
     document.getElementById('micBtn').classList.add('listening');
     document.getElementById('micLabel').textContent = '正在录音...点击停止';
-    document.getElementById('micLabel').classList.add('recording');
     document.getElementById('timer').style.display = 'block';
     timerInterval = setInterval(function() {
       seconds++; var m = Math.floor(seconds/60), s = seconds%60;
@@ -293,7 +289,6 @@ function stopMic() {
   isListening = false; clearInterval(timerInterval);
   document.getElementById('micBtn').classList.remove('listening');
   document.getElementById('micLabel').textContent = '点击麦克风重新作答';
-  document.getElementById('micLabel').classList.remove('recording');
   document.getElementById('timer').style.display = 'none';
 }
 
@@ -302,12 +297,16 @@ function pickTopic(type, el) {
   document.getElementById('feedbackCard').style.display = 'none';
   document.getElementById('btnSubmit').disabled = false;
   document.getElementById('answerBox').textContent = '';
-  document.querySelectorAll('.type-btn').forEach(function(b){b.classList.remove('active');});
-  if (el) el.classList.add('active');
-  var pool, keys = Object.keys(QUESTIONS);
-  if (type === 'all') { currentType = keys[Math.floor(Math.random()*keys.length)]; pool = QUESTIONS[currentType]; }
-  else { currentType = type; pool = QUESTIONS[type]; }
+
+  document.querySelectorAll('.tag-btn').forEach(function(b){ b.className = 'tag-btn px-5 py-2 rounded-xl text-[0.78rem] font-semibold bg-white/5 border border-white/8 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-300'; });
+  if (el) { el.className = 'tag-btn tag-active px-5 py-2 rounded-xl text-[0.78rem] font-semibold border border-transparent transition-all duration-300 hover:scale-[1.03]'; }
+
+  var keys = Object.keys(QUESTIONS);
+  if (type === 'all') { currentType = keys[Math.floor(Math.random()*keys.length)]; }
+  else { currentType = type; }
+  var pool = QUESTIONS[currentType];
   currentQuestion = pool[Math.floor(Math.random()*pool.length)];
+
   document.getElementById('questionText').textContent = currentQuestion;
   var t = document.getElementById('questionType'); t.textContent = currentType; t.style.display = 'inline-block';
 }
@@ -317,28 +316,28 @@ function clearAnswer() { stopMic(); document.getElementById('answerBox').textCon
 async function submitAnswer() {
   var answer = document.getElementById('answerBox').textContent.trim();
   if (!answer) { alert('请先点击麦克风作答，或手动输入回答'); return; }
-  if (answer.length < 30) { alert('回答太短，请详细阐述（至少30字）'); return; }
+  if (answer.length < 20) { alert('回答太短，请详细阐述（至少20字）'); return; }
   stopMic();
-  var btn = document.getElementById('btnSubmit'); btn.disabled = true; btn.textContent = '⏳ AI 批改中...';
+  var btn = document.getElementById('btnSubmit'); btn.disabled = true; btn.innerHTML = '⏳ AI 批改中...';
   document.getElementById('feedbackCard').style.display = 'block';
-  document.getElementById('feedbackContent').innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('feedbackContent').innerHTML = '<div class="flex gap-2 justify-center py-8"><span class="w-2 h-2 rounded-full bg-purple-400 animate-bounce"></span><span class="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style="animation-delay:.15s"></span><span class="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style="animation-delay:.3s"></span></div>';
 
-  var prompt = '你是公考面试考官，对以下回答点评。\n【题目类型】'+currentType+'\n【题目】'+currentQuestion+'\n【考生回答】'+answer+'\n从以下维度打分（满分100）：\n1.内容深度(25分) 2.逻辑结构(25分) 3.语言表达(25分) 4.实际价值(25分)\n\n输出格式：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：（2-3个）\n⚠️ 不足：（2-3个）\n💪 建议：（3条具体可操作的改进方法）\n📝 参考答案要点：（2-3个要点）\n语气专业客观、鼓励。';
+  var prompt = '你是公考面试考官，对以下回答进行专业点评。\n【题目类型】'+currentType+'\n【题目】'+currentQuestion+'\n【考生回答】'+answer+'\n从以下维度打分（满分100）：\n1.内容深度(25分) 2.逻辑结构(25分) 3.语言表达(25分) 4.实际价值(25分)\n\n输出格式：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：（2-3个）\n⚠️ 不足：（2-3个）\n💪 建议：（3条具体）\n📝 参考要点：（2-3个）\n语气专业、客观、鼓励。';
 
   try {
     var res = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+API_KEY}, body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:prompt}],max_tokens:2000,temperature:.7}) });
     var data = await res.json(), reply = data.choices[0].message.content;
     var scMatch = reply.match(/(\d{2,3})分/), sc = scMatch ? parseInt(scMatch[1]) : 0;
-    var scClass = sc >= 80 ? 'score-h' : (sc >= 60 ? 'score-m' : 'score-l');
+    var scCls = sc >= 80 ? 'text-green-400 bg-green-400/10' : (sc >= 60 ? 'text-yellow-400 bg-yellow-400/10' : 'text-red-400 bg-red-400/10');
     document.getElementById('feedbackContent').innerHTML = reply
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')
-      .replace(/(\d{2,3})分/g,'<span class="score-tag '+scClass+'">$1分</span>');
-  } catch(e) { document.getElementById('feedbackContent').innerHTML = '网络错误，请重试'; }
-  btn.disabled = false; btn.textContent = '📤 提交 · AI 点评';
+      .replace(/\*\*(.+?)\*\*/g,'<strong class="text-white">$1</strong>')
+      .replace(/\n/g,'<br>')
+      .replace(/(\d{2,3})分/g, '<span class="inline-block px-2.5 py-0.5 rounded-lg font-bold text-[0.9em] '+scCls+'">$1分</span>');
+  } catch(e) { document.getElementById('feedbackContent').innerHTML = '<p class="text-slate-400">网络错误，请重试</p>'; }
+  btn.disabled = false; btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> 提交 · AI 点评';
 }
 
 pickTopic('all');
 </script>
-
 </body>
 </html>
