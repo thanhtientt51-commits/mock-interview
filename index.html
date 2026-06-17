@@ -265,7 +265,7 @@ body {
 
 </div>
 
-<footer class="footer">AI考官由豆包驱动 · 仅供练习参考 · 不代表真实面试评分标准</footer>
+<footer class="footer">AI考官由DeepSeek驱动 · 仅供练习参考 · 不代表真实面试评分标准</footer>
 
 <script>
 const QUESTIONS = {
@@ -377,7 +377,7 @@ async function submitAnswer() {
   var prompt = '你是公考面试考官，对以下回答点评打分。\n【题目类型】'+currentType+'\n【题目】'+currentQuestion+'\n【考生回答】'+answer+'\n从内容深度(25分)、逻辑结构(25分)、语言表达(25分)、实际价值(25分)四个维度打分(满分100)。\n输出格式：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：(2-3个)\n⚠️ 不足：(2-3个)\n💪 建议：(3条)\n📝 参考要点：(2-3个)\n语气专业、客观、鼓励。';
 
   try {
-    var res = await fetch('https://api.moonshot.ai/v1/chat/completions', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer sk-gUc2dzCFYYVOEUo8kf5WNo1rLBavayvqsJkIBkwEc8nMqagJ'}, body:JSON.stringify({model:'kimi-k2.6',messages:[{role:'user',content:prompt}],max_completion_tokens:3000,temperature:1.0}) });
+    var res = await fetch('https://api.deepseek.com/chat/completions', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer sk-0541b3112cd44ec18041c235d380affc'}, body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:prompt}],max_tokens:2000,temperature:0.7}) });
     var data = await res.json(), reply = data.choices[0].message.content;
     var scMatch = reply.match(/(\d{2,3})分/), sc = scMatch ? parseInt(scMatch[1]) : 0;
     var scCls = sc >= 80 ? 'score-h' : (sc >= 60 ? 'score-m' : 'score-l');
