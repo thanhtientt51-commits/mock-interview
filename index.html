@@ -78,11 +78,12 @@ body {
 
 /* Question Card */
 .q-card {
-  background: var(--card); border-radius: var(--radius); padding: 24px;
+  background: var(--card); border-radius: var(--radius); padding: 32px 28px;
   border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  min-height: 160px; display: flex; flex-direction: column; justify-content: center;
 }
-.q-card .q-label { font-size: .68em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.q-card .q-text { font-size: 1.05em; font-weight: 600; line-height: 1.7; }
+.q-card .q-label { font-size: .7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.q-card .q-text { font-size: 1.15em; font-weight: 600; line-height: 1.9; }
 .q-card .q-type-badge { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: .65em; font-weight: 600; margin-top: 8px; background: #f0f4ff; color: var(--accent); }
 
 /* Mic */
@@ -108,9 +109,9 @@ body {
 
 /* Answer Box */
 .answer-box {
-  background: var(--card); border-radius: var(--radius); padding: 18px;
+  background: var(--card); border-radius: var(--radius); padding: 22px;
   border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 14px;
-  min-height: 100px; font-size: .88em; line-height: 1.8; outline: none;
+  min-height: 180px; font-size: .92em; line-height: 1.9; outline: none;
   transition: border-color .3s;
 }
 .answer-box:focus { border-color: var(--accent); }
