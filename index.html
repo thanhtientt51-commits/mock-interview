@@ -8,8 +8,7 @@
 :root {
   --bg: #f5f5f7; --card: #fff; --text: #1d1d1f; --sub: #86868b;
   --accent: #5865f2; --border: rgba(0,0,0,.06);
-  --shadow: 0 4px 20px rgba(0,0,0,.06);
-  --radius: 16px;
+  --shadow: 0 4px 20px rgba(0,0,0,.06); --radius: 16px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body {
@@ -17,7 +16,6 @@ body {
   background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.6;
 }
 
-/* Nav */
 .nav {
   position: sticky; top: 0; z-index: 100;
   background: rgba(245,245,247,.8); backdrop-filter: saturate(180%) blur(20px);
@@ -29,41 +27,60 @@ body {
   width: 28px; height: 28px; background: linear-gradient(135deg, #5865f2, #8b5cf6);
   border-radius: 7px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .85em;
 }
+.nav-status { font-size: .7em; color: var(--sub); }
 
-.hero { text-align: center; padding: 40px 24px 24px; }
+.hero { text-align: center; padding: 32px 24px 16px; }
 .hero h1 { font-size: 1.6em; font-weight: 800; }
-.hero p { font-size: .88em; color: var(--sub); margin-top: 6px; }
+.hero p { font-size: .88em; color: var(--sub); margin-top: 4px; }
 
 .main { max-width: 800px; margin: 0 auto; padding: 0 20px 40px; }
 
-/* Question Card */
+/* Types */
+.types-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
+.type-btn {
+  padding: 8px 16px; border-radius: 20px; font-size: .78em; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--sub); transition: .2s;
+}
+.type-btn:hover { border-color: var(--accent); color: var(--text); }
+.type-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Question */
 .q-card {
   background: var(--card); border-radius: var(--radius); padding: 24px;
-  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px;
+  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; text-align: center;
 }
-.q-card .q-label { font-size: .7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; }
-.q-card .q-text { font-size: 1.05em; font-weight: 600; line-height: 1.6; }
-.q-card .q-type { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: .68em; font-weight: 600; margin-top: 8px; }
-.type-a { background: #f0f4ff; color: #5865f2; }
-.type-b { background: #f6f0ff; color: #8b5cf6; }
-.type-c { background: #f0fdf4; color: #16a34a; }
-.type-d { background: #fffbeb; color: #d97706; }
-.type-e { background: #fef2f2; color: #dc2626; }
+.q-card .q-label { font-size: .7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
+.q-card .q-text { font-size: 1.1em; font-weight: 600; line-height: 1.7; }
+.q-card .q-type { display: inline-block; padding: 4px 12px; border-radius: 10px; font-size: .7em; font-weight: 600; margin-top: 10px; }
 
-/* Answer Area */
-.answer-area { margin-bottom: 16px; }
-.answer-area textarea {
-  width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px;
-  font-size: .9em; font-family: inherit; resize: vertical; outline: none; line-height: 1.6;
-  min-height: 120px; background: var(--card); transition: .2s;
+/* Voice Section */
+.voice-section { text-align: center; margin-bottom: 16px; }
+.mic-btn {
+  width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--border);
+  background: #fff; cursor: pointer; transition: all .3s; display: inline-flex;
+  align-items: center; justify-content: center; font-size: 2.5em; box-shadow: var(--shadow);
 }
-.answer-area textarea:focus { border-color: var(--accent); }
-.answer-area textarea::placeholder { color: #c0c0c8; }
+.mic-btn:hover { transform: scale(1.05); border-color: var(--accent); }
+.mic-btn.listening {
+  border-color: #dc2626; background: #fef2f2;
+  animation: pulse 1.5s infinite; box-shadow: 0 0 0 0 rgba(220,38,38,.4);
+}
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(220,38,38,.4); } 70% { box-shadow: 0 0 0 20px rgba(220,38,38,0); } 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0); } }
+.mic-status { font-size: .8em; color: var(--sub); margin-top: 10px; }
+.mic-status.recording { color: #dc2626; font-weight: 600; }
+
+/* Answer */
+.answer-box {
+  background: var(--card); border-radius: var(--radius); padding: 20px;
+  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; min-height: 100px;
+  font-size: .92em; line-height: 1.8; white-space: pre-wrap; word-break: break-word;
+}
+.answer-box:empty::before { content: '你的回答将显示在这里...'; color: #c0c0c8; }
 
 /* Buttons */
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
 .btn {
-  padding: 10px 22px; border-radius: 22px; font-size: .85em; font-weight: 700;
+  padding: 12px 24px; border-radius: 24px; font-size: .88em; font-weight: 700;
   cursor: pointer; border: 0; transition: .2s; display: inline-flex; align-items: center; gap: 6px;
 }
 .btn-primary { background: linear-gradient(135deg, #5865f2, #8b5cf6); color: #fff; box-shadow: 0 4px 14px rgba(88,101,242,.25); }
@@ -72,47 +89,31 @@ body {
 .btn-outline:hover { background: #f9f9fb; }
 .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
-/* Feedback Card */
+/* Feedback */
 .feedback {
   background: var(--card); border-radius: var(--radius); padding: 24px;
-  border: 1px solid var(--border); box-shadow: var(--shadow);
+  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px;
 }
 .feedback h3 { font-size: .95em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.feedback .fb-content { font-size: .88em; line-height: 1.8; color: #444; }
-.feedback .fb-content strong { color: var(--text); }
-.feedback .fb-content .score {
-  display: inline-block; padding: 4px 14px; border-radius: 14px;
-  font-weight: 700; font-size: .9em; margin: 4px;
-}
-.score-high { background: #f0fdf4; color: #16a34a; }
-.score-mid { background: #fffbeb; color: #d97706; }
-.score-low { background: #fef2f2; color: #dc2626; }
+.fb-content { font-size: .88em; line-height: 1.8; color: #444; }
+.fb-content strong { color: var(--text); }
+.score { display: inline-block; padding: 2px 12px; border-radius: 12px; font-weight: 700; font-size: .9em; margin: 2px; }
+.score-h { background: #f0fdf4; color: #16a34a; } .score-m { background: #fffbeb; color: #d97706; } .score-l { background: #fef2f2; color: #dc2626; }
 
-/* Presets */
-.types-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.type-btn {
-  padding: 6px 14px; border-radius: 16px; font-size: .75em; font-weight: 600;
-  cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--sub); transition: .2s;
-}
-.type-btn:hover { border-color: var(--accent); color: var(--text); }
-.type-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Loading */
+.loading { text-align: center; padding: 20px; color: var(--sub); }
+.loading .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--sub); animation: bounce 1.4s infinite; margin: 0 2px; }
+.loading .dot:nth-child(2) { animation-delay: .2s; } .loading .dot:nth-child(3) { animation-delay: .4s; }
+@keyframes bounce { 0%,60%,100% { opacity: .3; } 30% { opacity: 1; } }
 
-/* History */
-.history { margin-top: 20px; }
-.history h3 { font-size: .85em; color: var(--sub); margin-bottom: 8px; }
-.history-item {
-  background: var(--card); border-radius: 10px; padding: 12px 16px;
-  border: 1px solid var(--border); margin-bottom: 6px; cursor: pointer; font-size: .8em; transition: .2s;
-}
-.history-item:hover { border-color: var(--accent); }
-.history-item .q { font-weight: 600; }
-.history-item .meta { font-size: .75em; color: var(--sub); margin-top: 2px; }
+/* Timer */
+.timer { font-size: 1.2em; font-weight: 700; color: var(--accent); margin-top: 6px; }
 
 .empty { text-align: center; padding: 40px; color: var(--sub); }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.3em; }
-  .btn-row { flex-direction: column; }
+  .mic-btn { width: 80px; height: 80px; font-size: 2em; }
 }
 </style>
 </head>
@@ -121,49 +122,49 @@ body {
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-logo"><div class="icon">🎯</div>公考面试AI模拟</div>
-    <span style="font-size:.7em;color:var(--sub)">AI考官 · 实时点评</span>
+    <span class="nav-status" id="apiStatus">AI考官 · 语音对话</span>
   </div>
 </nav>
 
 <section class="hero">
   <h1>AI 模拟公考面试</h1>
-  <p>随机出题 · 作答 · AI 逐项点评 · 不断进步</p>
+  <p>点击麦克风开始作答 · AI实时转文字 · 提交后逐项打分</p>
 </section>
 
 <div class="main">
 
   <div class="types-row">
-    <button class="type-btn" onclick="pickTopic('all')">🎲 随机出题</button>
-    <button class="type-btn" onclick="pickTopic('综合分析')">💡 综合分析</button>
-    <button class="type-btn" onclick="pickTopic('组织管理')">📋 组织管理</button>
-    <button class="type-btn" onclick="pickTopic('应急应变')">⚡ 应急应变</button>
-    <button class="type-btn" onclick="pickTopic('人际关系')">🤝 人际关系</button>
-    <button class="type-btn" onclick="pickTopic('岗位匹配')">🎯 岗位匹配</button>
+    <button class="type-btn active" onclick="pickTopic('all',this)">🎲 随机</button>
+    <button class="type-btn" onclick="pickTopic('综合分析',this)">💡 综合分析</button>
+    <button class="type-btn" onclick="pickTopic('组织管理',this)">📋 组织管理</button>
+    <button class="type-btn" onclick="pickTopic('应急应变',this)">⚡ 应急应变</button>
+    <button class="type-btn" onclick="pickTopic('人际关系',this)">🤝 人际关系</button>
+    <button class="type-btn" onclick="pickTopic('岗位匹配',this)">🎯 岗位匹配</button>
   </div>
 
-  <div class="q-card" id="questionCard">
+  <div class="q-card">
     <div class="q-label">📝 面试题目</div>
     <div class="q-text" id="questionText">点击上方按钮抽取一道面试题</div>
-    <span class="q-type type-a" id="questionType" style="display:none"></span>
+    <span class="q-type" id="questionType" style="display:none;background:#f0f4ff;color:#5865f2"></span>
   </div>
 
-  <div class="answer-area">
-    <textarea id="answerInput" placeholder="在这里输入你的回答...&#10;&#10;建议：先思考30秒，理清思路，再开始作答。每题回答控制在2-3分钟。"></textarea>
+  <div class="voice-section">
+    <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="点击开始/停止录音">🎤</button>
+    <div class="mic-status" id="micStatus">点击麦克风开始作答</div>
+    <div class="timer" id="timer" style="display:none">00:00</div>
   </div>
+
+  <div class="answer-box" id="answerBox" contenteditable="true" placeholder="你的回答将显示在这里..."></div>
 
   <div class="btn-row">
-    <button class="btn btn-primary" id="btnSubmit" onclick="submitAnswer()">📤 提交回答 · AI点评</button>
+    <button class="btn btn-primary" id="btnSubmit" onclick="submitAnswer()">📤 提交 · AI点评</button>
+    <button class="btn btn-outline" id="btnClear" onclick="clearAnswer()">🗑️ 清空回答</button>
     <button class="btn btn-outline" id="btnNew" onclick="pickTopic('all')">🔄 换一题</button>
   </div>
 
   <div class="feedback" id="feedbackCard" style="display:none">
     <h3>🤖 AI 考官点评</h3>
     <div class="fb-content" id="feedbackContent"></div>
-  </div>
-
-  <div class="history" id="historySection" style="display:none">
-    <h3>📚 练习记录</h3>
-    <div id="historyList"></div>
   </div>
 
 </div>
@@ -177,47 +178,128 @@ const QUESTIONS = {
     '有人说"公务员是铁饭碗"，也有人说"公务员要有本领恐慌"。请谈谈你的理解。',
     '近期多地推行"数字政府"建设，但部分老年人反映办事更难了。你怎么看？',
     '基层干部常说"上面千条线，下面一根针"。请谈谈你对基层工作特点的认识。',
-    '有人觉得公务员工作稳定但枯燥，你怎么看待这种观点？',
     '"躺平"成为网络热词，部分年轻人选择不结婚不生子不奋斗。你作为公务员怎么看？',
+    '对于当前部分地区存在的"面子工程""形象工程"，你怎么看？',
   ],
   '组织管理': [
-    '单位要组织一次面向群众的政策宣讲活动，领导让你负责，你怎么做？',
-    '某社区老年人较多，你打算组织一次防诈骗宣传活动，请谈谈你的方案。',
+    '单位要组织一次面向群众的政策宣讲活动，领导让你负责，你怎么组织？',
+    '某社区老年人较多，你要组织一次防诈骗宣传活动，请谈谈你的方案。',
     '单位要举办年度总结大会，你负责会务工作，请谈谈你的安排。',
-    '领导让你负责新员工的入职培训，你会如何组织？',
-    '某县要举办农产品展销会，你作为负责人，怎么策划？',
+    '领导让你负责新员工的入职培训，你会如何策划和实施？',
+    '某县要举办农产品展销会，你作为负责人会怎么筹备？',
   ],
   '应急应变': [
-    '你正在给群众办事，突然一位老人晕倒了，周围群众开始围观，你怎么办？',
+    '你正在窗口为群众办事，突然一位老人晕倒了，周围群众开始围观，你怎么办？',
     '上级突然来检查，但分管领导不在，作为值班人员你如何处理？',
-    '你在窗口工作时，一位群众情绪激动地指责你办事效率低，你怎么办？',
-    '单位组织的大型活动即将开始，但主讲嘉宾堵在路上，你怎么处理？',
-    '某小区居民集体投诉噪音问题，情绪激动，你作为值班人员怎么办？',
+    '群众情绪激动地指责你办事效率低，你怎么办？',
+    '单位组织的大型活动即将开始，主讲嘉宾堵在路上，你怎么处理？',
+    '某小区居民集体投诉噪音扰民，情绪激动要上访，你作为值班人员怎么办？',
   ],
   '人际关系': [
     '你发现同事在工作中有违规操作，你会怎么做？',
-    '领导安排你和一位关系不太好的同事一起完成任务，你怎么办？',
+    '领导安排你和关系不太好的同事一起完成一项重要任务，你怎么办？',
     '新来的领导工作风格和前任完全不同，你如何适应？',
-    '同事经常把工作推给你，你的工作任务已经很重了，怎么办？',
-    '你在会议上提出了不同意见，领导明显不高兴，事后你怎么办？',
+    '同事经常把他的工作推给你，你的任务已经很重了，怎么办？',
+    '你在会议上提出了不同意见，领导明显不高兴，事后你如何处理？',
   ],
   '岗位匹配': [
-    '为什么选择报考公务员？你觉得自己适合这个岗位吗？',
-    '请用三个词形容你自己，并结合报考岗位说明。',
+    '为什么选择报考公务员？你觉得自己的哪些特质适合这个岗位？',
+    '请用三个关键词形容你自己，并结合报考岗位说明。',
     '如果你被录用了，五年后你希望自己成为什么样的人？',
     '你最大的缺点是什么？你打算如何克服？',
-    '谈谈你做过的最有成就感的一件事，它对你报考这个岗位有什么帮助？',
+    '谈谈你做过的最有成就感的一件事，它对你胜任这个岗位有什么帮助？',
   ]
 };
 
 var currentQuestion = '';
 var currentType = '';
-var history = JSON.parse(localStorage.getItem('interview_history') || '[]');
+var recognition = null;
+var isListening = false;
+var timerInterval = null;
+var seconds = 0;
 
-function pickTopic(type) {
+// ============ Speech Recognition ============
+var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+var hasSpeech = !!SpeechRecognition;
+
+if (hasSpeech) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'zh-CN';
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onresult = function(event) {
+    var text = '';
+    for (var i = event.resultIndex; i < event.results.length; i++) {
+      text += event.results[i][0].transcript;
+    }
+    document.getElementById('answerBox').textContent = text;
+  };
+
+  recognition.onerror = function(event) {
+    if (event.error === 'no-speech' || event.error === 'aborted') return;
+    stopMic();
+    document.getElementById('micStatus').textContent = '语音识别出错，请重试';
+  };
+
+  recognition.onend = function() {
+    if (isListening) {
+      try { recognition.start(); } catch(e) { stopMic(); }
+    }
+  };
+} else {
+  document.getElementById('micBtn').style.display = 'none';
+  document.getElementById('micStatus').textContent = '你的浏览器不支持语音，请手动输入回答';
+}
+
+function toggleMic() {
+  if (!hasSpeech) return;
+  if (isListening) { stopMic(); } else { startMic(); }
+}
+
+function startMic() {
+  if (!hasSpeech) return;
+  try {
+    recognition.start();
+    isListening = true;
+    seconds = 0;
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('micBtn').textContent = '🔴';
+    document.getElementById('micStatus').textContent = '正在录音...点击停止';
+    document.getElementById('micStatus').classList.add('recording');
+    document.getElementById('timer').style.display = 'block';
+    timerInterval = setInterval(function() {
+      seconds++;
+      var m = Math.floor(seconds / 60);
+      var s = seconds % 60;
+      document.getElementById('timer').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }, 1000);
+  } catch(e) {
+    document.getElementById('micStatus').textContent = '语音启动失败，请手动输入';
+  }
+}
+
+function stopMic() {
+  if (!hasSpeech) return;
+  try { recognition.stop(); } catch(e) {}
+  isListening = false;
+  clearInterval(timerInterval);
+  document.getElementById('micBtn').classList.remove('listening');
+  document.getElementById('micBtn').textContent = '🎤';
+  document.getElementById('micStatus').textContent = '点击麦克风重新作答';
+  document.getElementById('micStatus').classList.remove('recording');
+  document.getElementById('timer').style.display = 'none';
+}
+
+// ============ Question & Answer ============
+function pickTopic(type, el) {
+  stopMic();
   document.getElementById('feedbackCard').style.display = 'none';
   document.getElementById('btnSubmit').disabled = false;
-  document.getElementById('answerInput').value = '';
+  document.getElementById('answerBox').textContent = '';
+
+  document.querySelectorAll('.type-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (el) el.classList.add('active');
 
   var pool;
   if (type === 'all') {
@@ -227,6 +309,7 @@ function pickTopic(type) {
   } else {
     currentType = type;
     pool = QUESTIONS[type];
+    document.querySelector('.type-btn.active') || document.querySelector('[onclick*="all"]').classList.remove('active');
   }
 
   currentQuestion = pool[Math.floor(Math.random() * pool.length)];
@@ -234,103 +317,67 @@ function pickTopic(type) {
   var typeEl = document.getElementById('questionType');
   typeEl.textContent = currentType;
   typeEl.style.display = 'inline-block';
-  typeEl.className = 'q-type type-' + ['a','b','c','d','e'][Object.keys(QUESTIONS).indexOf(currentType)];
+}
+
+function clearAnswer() {
+  stopMic();
+  document.getElementById('answerBox').textContent = '';
 }
 
 async function submitAnswer() {
-  var answer = document.getElementById('answerInput').value.trim();
-  if (!answer) { alert('请先输入你的回答'); return; }
-  if (answer.length < 20) { alert('回答太短了，请详细阐述你的观点（至少20字）'); return; }
+  var answer = document.getElementById('answerBox').textContent.trim();
+  if (!answer) { alert('请先点击麦克风作答，或手动输入回答'); return; }
+  if (answer.length < 30) { alert('回答太短了，请详细阐述你的观点（至少30字）'); return; }
 
+  stopMic();
   var btn = document.getElementById('btnSubmit');
   btn.disabled = true;
-  btn.textContent = '⏳ AI正在批改...';
+  btn.textContent = '⏳ AI批改中...';
 
   document.getElementById('feedbackCard').style.display = 'block';
-  document.getElementById('feedbackContent').innerHTML = '<span style="color:var(--sub)">AI考官正在分析你的回答...</span>';
+  document.getElementById('feedbackContent').innerHTML = '<div class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span> AI考官正在分析...</div>';
 
-  var prompt = `你是公考面试考官，请对以下回答进行专业点评。
+  var prompt = `你是公考面试考官，对以下回答进行专业点评。
 
-【题目类型】${currentType}
-【面试题目】${currentQuestion}
+【题目类型】${currentType}  【题目】${currentQuestion}
 【考生回答】${answer}
 
-请从以下维度打分和点评（满分100）：
-1. 内容深度（25分）：观点是否明确，论据是否充分
-2. 逻辑结构（25分）：条理是否清晰，层次是否分明
-3. 语言表达（25分）：是否流畅自然，用词是否准确
-4. 实际价值（25分）：是否有可操作性，是否结合了公务员视角
+从以下维度打分（满分100）：
+1. 内容深度（25分）2. 逻辑结构（25分）3. 语言表达（25分）4. 实际价值（25分）
 
 输出格式：
-💡 **总分：XX分** （用score-high/mid/low标记）
-📊 各维度得分：内容X分 | 逻辑X分 | 表达X分 | 价值X分
-✅ 优点：（列举2-3个具体优点）
-⚠️ 不足：（列举2-3个具体不足）
-💪 提升建议：（给出3条具体可行的改进建议）
-📝 参考答案要点：（给出2-3个回答该题的要点）
+💡 **总分：XX分**
+📊 各维度：内容X | 逻辑X | 表达X | 价值X
+✅ 优点：（2-3个）
+⚠️ 不足：（2-3个）
+💪 建议：（3条具体可操作的改进方法）
+📝 参考答案要点：（2-3个要点）
 
-语气专业、客观、鼓励，帮助考生真正提高。`;
+语气专业客观，多用鼓励性语言。`;
 
   try {
     var res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
-      body: JSON.stringify({
-        model: 'deepseek-chat',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 2000,
-        temperature: 0.7
-      })
+      body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.7 })
     });
     var data = await res.json();
     var reply = data.choices[0].message.content;
-
-    // Parse score for color
     var scoreMatch = reply.match(/(\d{2,3})分/);
-    var score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-    var scoreClass = score >= 80 ? 'score-high' : (score >= 60 ? 'score-mid' : 'score-low');
-
-    var html = reply
+    var sc = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+    var scClass = sc >= 80 ? 'score-h' : (sc >= 60 ? 'score-m' : 'score-l');
+    document.getElementById('feedbackContent').innerHTML = reply
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n/g, '<br>')
-      .replace(/(\d{2,3})分/g, '<span class="score ' + scoreClass + '">$1分</span>');
-
-    document.getElementById('feedbackContent').innerHTML = html;
-
-    // Save to history
-    history.unshift({ q: currentQuestion, a: answer.substring(0, 100), f: reply.substring(0, 200), t: currentType, time: new Date().toISOString() });
-    if (history.length > 20) history = history.slice(0, 20);
-    localStorage.setItem('interview_history', JSON.stringify(history));
-    renderHistory();
-
+      .replace(/(\d{2,3})分/g, '<span class="score ' + scClass + '">$1分</span>');
   } catch(e) {
-    document.getElementById('feedbackContent').innerHTML = '点评生成失败，请重试。';
+    document.getElementById('feedbackContent').innerHTML = '网络错误，请重试。';
   }
-
   btn.disabled = false;
-  btn.textContent = '📤 提交回答 · AI点评';
-}
-
-function renderHistory() {
-  if (history.length === 0) return;
-  document.getElementById('historySection').style.display = 'block';
-  document.getElementById('historyList').innerHTML = history.map(function(h, i) {
-    return '<div class="history-item" onclick="loadHistory(' + i + ')"><span class="q">' + h.q.substring(0, 40) + '...</span><br><span class="meta">' + h.t + ' · ' + new Date(h.time).toLocaleDateString() + '</span></div>';
-  }).join('');
-}
-
-function loadHistory(i) {
-  var h = history[i];
-  document.getElementById('questionText').textContent = h.q;
-  currentQuestion = h.q;
-  currentType = h.t;
-  document.getElementById('answerInput').value = h.a;
-  document.getElementById('feedbackCard').style.display = 'block';
-  document.getElementById('feedbackContent').innerHTML = h.f.replace(/\n/g, '<br>');
+  btn.textContent = '📤 提交 · AI点评';
 }
 
 // Init
-renderHistory();
 pickTopic('all');
 </script>
 
