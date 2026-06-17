@@ -347,8 +347,6 @@ function pickTopic(type) {
   document.getElementById('feedbackContent').style.display = 'none';
   document.getElementById('btnSubmit').disabled = false;
   document.getElementById('answerBox').textContent = '';
-  document.querySelectorAll('.type-card').forEach(function(b){b.classList.remove('active');});
-  if (el) el.classList.add('active');
   var keys = Object.keys(QUESTIONS);
   if (type === 'all') { currentType = keys[Math.floor(Math.random()*keys.length)]; }
   else { currentType = type; }
