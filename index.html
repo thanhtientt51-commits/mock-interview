@@ -80,11 +80,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
 
 
 <div class="main">
-  <div class="grid-left">
-    <div style="display:flex;gap:8px;margin-bottom:28px;grid-column:1/-1">
+  <div style="display:flex;gap:8px;margin-bottom:28px;grid-column:1/-1">
       <button class="btn btn-primary" id="catGwy" onclick="switchCategory('gwy',this)" style="border-radius:20px;padding:8px 24px">公务员</button>
       <button class="btn btn-ghost" id="catSydw" onclick="switchCategory('sydw',this)" style="border-radius:20px;padding:8px 24px">事业单位</button>
     </div>
+    <div class="grid-left">
+    
     <div class="types-grid">
       <div class="type-card active tc-purple" data-topic="all"><div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></div><div><div class="tc-name">随机出题</div><div class="tc-desc">系统自动分配面试题型</div></div></div>
       <div class="type-card tc-blue" data-topic="综合分析"><div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="tc-name">综合分析</div><div class="tc-desc">观点评述 · 现象分析</div></div></div>
