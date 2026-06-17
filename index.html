@@ -33,13 +33,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
 .type-card.active{border-color:var(--accent);box-shadow:0 4px 16px rgba(88,101,242,.12);background:#fafaff}
 .type-card.active .tc-icon{background:linear-gradient(135deg,var(--accent),var(--accent2))}
 .type-card.active svg{color:#fff;stroke:#fff}
-.q-card{background:var(--card);border-radius:var(--radius);padding:32px 28px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:16px;min-height:160px;max-height:220px;overflow-y:auto;display:flex;flex-direction:column;justify-content:center}
+.q-card{background:var(--card);border-radius:var(--radius);padding:32px 28px;border:1px solid var(--border);box-shadow:var(--shadow-sm);margin-bottom:16px;min-height:160px;max-height:220px;display:flex;flex-direction:column;overflow:hidden}
 .q-card .q-label{font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.q-card .q-text{font-size:1.15em;font-weight:600;line-height:1.9}
+.q-card .q-text{font-size:1.15em;font-weight:600;line-height:1.9;overflow-y:auto;flex:1;-ms-overflow-style:none;scrollbar-width:none}
 .q-type-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:.65em;font-weight:600;margin-top:8px;background:#f0f4ff;color:var(--accent)}
 .answer-box{background:var(--card);border-radius:var(--radius);padding:22px;border:1px solid var(--border);box-shadow:var(--shadow-sm);min-height:340px;max-height:340px;font-size:.92em;line-height:1.9;outline:none;overflow-y:auto;word-break:break-word;}
 .answer-box:focus{border-color:var(--accent)}
-.answer-box::-webkit-scrollbar,.fb-content::-webkit-scrollbar,.q-card::-webkit-scrollbar{display:none}
+.answer-box::-webkit-scrollbar,.fb-content::-webkit-scrollbar,.q-card .q-text::-webkit-scrollbar{display:none}
 .answer-box,.fb-content,.q-card{-ms-overflow-style:none;scrollbar-width:none}
 .answer-box:empty::before{content:'你的语音回答将自动显示在这里…\a也可以手动输入或编辑';white-space:pre;color:#c0c0c8}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
