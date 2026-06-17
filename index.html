@@ -183,11 +183,11 @@ body {
   <!-- LEFT -->
   <div>
     <div class="types-grid">
-      <div class="type-card active tc-purple" onclick="pickTopic('all',this)">
+      <div class="type-card active tc-purple" onclick="pickTopic('all')">
         <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></div>
         <div><div class="tc-name">随机出题</div><div class="tc-desc">系统自动分配面试题型</div></div>
       </div>
-      <div class="type-card tc-blue" onclick="pickTopic('综合分析',this)">
+      <div class="type-card tc-blue" onclick="pickTopic('综合分析');document.querySelectorAll('.type-card').forEach(function(b){b.classList.remove('active')});event.currentTarget.closest('.type-card').classList.add('active')">
         <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <div><div class="tc-name">综合分析</div><div class="tc-desc">观点评述 · 现象分析</div></div>
       </div>
@@ -341,7 +341,7 @@ function stopMic() {
   document.getElementById('timer').style.display = 'none';
 }
 
-function pickTopic(type, el) {
+function pickTopic(type) {
   stopMic();
   document.getElementById('fbEmpty').style.display = 'block';
   document.getElementById('feedbackContent').style.display = 'none';
@@ -374,6 +374,16 @@ function submitAnswer() {
     prompt('请手动复制以下内容，粘贴到右侧豆包对话框：', prompt);
   });
 }
+
+// Event delegation for type cards
+document.querySelector('.types-grid').addEventListener('click', function(e) {
+  var card = e.target.closest('.type-card');
+  if (!card) return;
+  var topic = card.dataset.topic;
+  document.querySelectorAll('.type-card').forEach(function(b){b.classList.remove('active');});
+  card.classList.add('active');
+  pickTopic(topic);
+});
 
 pickTopic('all');
 </script>
