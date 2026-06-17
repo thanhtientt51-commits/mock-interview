@@ -212,8 +212,8 @@ tailwind.config = {
 
 <!-- ============ SCRIPTS ============ -->
 <script>
-const API_KEY = 'sk-0541b3112cd44ec18041c235d380affc';
-const API_URL = 'https://api.deepseek.com/chat/completions';
+const API_KEY = 'sk-gUc2dzCFYYVOEUo8kf5WNo1rLBavayvqsJkIBkwEc8nMqagJ';
+const API_URL = 'https://api.moonshot.ai/v1/chat/completions';
 
 const QUESTIONS = {
   '综合分析': [
@@ -325,7 +325,7 @@ async function submitAnswer() {
   var prompt = '你是公考面试考官，对以下回答进行专业点评。\n【题目类型】'+currentType+'\n【题目】'+currentQuestion+'\n【考生回答】'+answer+'\n从以下维度打分（满分100）：\n1.内容深度(25分) 2.逻辑结构(25分) 3.语言表达(25分) 4.实际价值(25分)\n\n输出格式：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：（2-3个）\n⚠️ 不足：（2-3个）\n💪 建议：（3条具体）\n📝 参考要点：（2-3个）\n语气专业、客观、鼓励。';
 
   try {
-    var res = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+API_KEY}, body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:prompt}],max_tokens:2000,temperature:.7}) });
+    var res = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+API_KEY}, body:JSON.stringify({model:'kimi-k2.6',messages:[{role:'user',content:prompt}],max_completion_tokens:3000,temperature:1.0}) });
     var data = await res.json(), reply = data.choices[0].message.content;
     var scMatch = reply.match(/(\d{2,3})分/), sc = scMatch ? parseInt(scMatch[1]) : 0;
     var scCls = sc >= 80 ? 'text-green-400 bg-green-400/10' : (sc >= 60 ? 'text-yellow-400 bg-yellow-400/10' : 'text-red-400 bg-red-400/10');

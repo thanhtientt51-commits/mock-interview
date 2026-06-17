@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="bg-[#0F172A]">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公考面试AI模拟</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    background: #0F172A;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 50% -10%, rgba(79,70,229,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 35% 35% at 85% 90%, rgba(124,58,237,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 15% 50%, rgba(167,139,250,0.03) 0%, transparent 30%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  .glass {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(167, 139, 250, 0.1);
+    box-shadow: 0 4px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.02);
+  }
+  .gradient-border {
+    border: 1px solid rgba(167, 139, 250, 0.12);
+    transition: border-color .3s ease;
+  }
+  .gradient-border:focus-within {
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 0 0 0 3px rgba(167,139,250,.1);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    box-shadow: 0 4px 16px rgba(79,70,229,.25);
+    transition: all .25s ease;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 8px 28px rgba(79,70,229,.4);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    transition: all .25s ease;
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(167,139,250,.2);
+  }
+  .tag-active {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    box-shadow: 0 2px 12px rgba(79,70,229,.3);
+  }
+  .tag-normal {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all .25s ease;
+  }
+  .tag-normal:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(167,139,250,.2);
+  }
+  .mic-ring {
+    width: 152px; height: 152px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(79,70,229,.25), rgba(124,58,237,.15));
+    border: 2px solid rgba(167,139,250,.2);
+    transition: all .3s ease;
+    animation: micGlow 3s ease-in-out infinite;
+  }
+  .mic-ring:hover {
+    border-color: rgba(167,139,250,.5);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(167,139,250,.25);
+  }
+  .mic-inner {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    box-shadow: 0 0 30px rgba(79,70,229,.3);
+  }
+  @keyframes micGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(167,139,250,.15), 0 0 50px rgba(167,139,250,.05); }
+    50% { box-shadow: 0 0 35px rgba(167,139,250,.3), 0 0 80px rgba(167,139,250,.1); }
+  }
+  textarea:focus { outline: none; }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(167,139,250,.1); border-radius: 2px; }
+</style>
+</head>
+<body class="font-sans antialiased flex flex-col">
+
+<!-- ============ 1. NAV ============ -->
+<nav class="sticky top-0 z-50 glass border-b border-purple-500/8">
+  <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm shadow-lg shadow-indigo-500/20">🎯</div>
+      <span class="text-white font-bold text-[0.95rem] tracking-tight">公考面试AI模拟</span>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-1.5 rounded-full text-[0.75rem] font-semibold text-purple-200 bg-purple-500/10 border border-purple-400/15 hover:bg-purple-500/20 hover:text-white transition-all duration-300 cursor-pointer">
+      🎤 AI考官 · 语音作答
+    </div>
+  </div>
+</nav>
+
+<!-- ============ 2. TYPE TAGS ============ -->
+<div class="max-w-4xl mx-auto px-6 pt-7 pb-2">
+  <div class="flex flex-wrap justify-center gap-2.5">
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-active text-white cursor-pointer transition-all duration-300 hover:scale-[1.03]">🎲 随机出题</div>
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-normal text-slate-300 cursor-pointer">💡 综合分析</div>
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-normal text-slate-300 cursor-pointer">📋 组织管理</div>
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-normal text-slate-300 cursor-pointer">⚡ 应急应变</div>
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-normal text-slate-300 cursor-pointer">🤝 人际关系</div>
+    <div class="px-5 py-2 rounded-xl text-[0.78rem] font-semibold tag-normal text-slate-300 cursor-pointer">🎯 岗位匹配</div>
+  </div>
+</div>
+
+<!-- ============ 3. QUESTION CARD ============ -->
+<div class="max-w-3xl mx-auto px-6 w-full pt-6">
+  <div class="glass rounded-2xl p-7 relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400/35 to-transparent"></div>
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-amber-400 text-sm">📝</span>
+      <span class="text-[0.7rem] font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 px-3 py-1 rounded-md">人际关系</span>
+    </div>
+    <p class="text-white text-[1.15rem] font-semibold leading-relaxed text-center tracking-tight">
+      你发现同事在工作中有违规操作，你会怎么做？
+    </p>
+    <div class="text-center mt-3">
+      <span class="text-[0.65rem] text-slate-500 uppercase tracking-wider">面试模拟</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 4. MIC ============ -->
+<div class="flex flex-col items-center pt-8 pb-4">
+  <div class="mic-ring flex items-center justify-center cursor-pointer">
+    <div class="mic-inner flex items-center justify-center text-[2.4rem]">🎤</div>
+  </div>
+  <p class="mt-4 text-[0.82rem] text-slate-400 font-medium">点击麦克风开始作答</p>
+</div>
+
+<!-- ============ 5. TEXTAREA ============ -->
+<div class="max-w-3xl mx-auto px-6 w-full pt-2 pb-6">
+  <div class="glass rounded-2xl p-6 gradient-border">
+    <textarea rows="4"
+      class="w-full min-h-[130px] bg-transparent text-[0.9rem] text-slate-200 leading-relaxed resize-none placeholder-slate-500 outline-none"
+      placeholder="你的语音回答将自动显示在这里，也可以手动输入或编辑"></textarea>
+  </div>
+</div>
+
+<!-- ============ 6. BUTTONS ============ -->
+<div class="flex justify-center gap-4 flex-wrap pb-8">
+  <button class="btn-primary flex items-center gap-2 px-8 py-3 rounded-xl text-[0.88rem] font-bold text-white">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </svg>
+    提交 · AI 点评
+  </button>
+  <button class="btn-ghost flex items-center gap-2 px-7 py-3 rounded-xl text-[0.85rem] font-semibold text-slate-400 hover:text-white">
+    🗑️ 清空
+  </button>
+  <button class="btn-ghost flex items-center gap-2 px-7 py-3 rounded-xl text-[0.85rem] font-semibold text-purple-300 hover:text-purple-200">
+    🔄 换题
+  </button>
+</div>
+
+<!-- ============ 7. FOOTER ============ -->
+<footer class="text-center py-8 text-[0.68rem] text-slate-600 tracking-wide mt-auto">
+  AI考官由DeepSeek驱动 · 仅供练习参考 · 不代表真实面试评分标准
+</footer>
+
+</body>
+</html>
