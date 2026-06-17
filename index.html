@@ -43,8 +43,9 @@ body {
 .hero p { font-size: .82em; color: var(--sub); margin-top: 4px; }
 
 /* Main Grid */
-.main { max-width: 1300px; margin: 0 auto; padding: 0 24px 40px; display: grid; grid-template-columns: 1fr 420px; gap: 20px; align-items: start; }
-.fb-panel { display: flex; flex-direction: column; height: 100%; }
+.main { max-width: 1300px; margin: 0 auto; padding: 0 24px 40px; display: grid; grid-template-columns: 1fr 420px; gap: 20px; }
+.fb-panel { display: flex; flex-direction: column; min-height: 0; }
+.main > div:last-child { min-height: 0; }
 
 .section-title { font-size: .75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--sub); margin-bottom: 14px; }
 
