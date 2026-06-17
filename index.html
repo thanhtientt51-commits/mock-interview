@@ -43,7 +43,8 @@ body {
 .hero p { font-size: .82em; color: var(--sub); margin-top: 4px; }
 
 /* Main Grid */
-.main { max-width: 1300px; margin: 0 auto; padding: 0 24px 40px; display: grid; grid-template-columns: 1fr 420px; gap: 20px; }
+.main { max-width: 1300px; margin: 0 auto; padding: 0 24px 40px; display: grid; grid-template-columns: 1fr 420px; gap: 20px; align-items: start; }
+.fb-panel { display: flex; flex-direction: column; height: 100%; }
 
 .section-title { font-size: .75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--sub); margin-bottom: 14px; }
 
@@ -248,18 +249,20 @@ body {
 
   <!-- RIGHT: Feedback -->
   <div>
-    <div class="section-title">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      AI 点评
-    </div>
-    <div class="fb-panel" id="feedbackPanel">
-      <div class="fb-empty" id="fbEmpty">
+    <div class="fb-panel" id="feedbackPanel" style="display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+        <button class="btn btn-ghost" style="font-size:.72em;padding:4px 12px" onclick="clearFeedback()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          清空点评
+        </button>
+      </div>
+      <div class="fb-empty" id="fbEmpty" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column">
         <span class="fb-icon">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </span>
         <p>提交回答后<br>AI 考官将在这里逐项点评</p>
       </div>
-      <div class="fb-content" id="feedbackContent" style="display:none"></div>
+      <div class="fb-content" id="feedbackContent" style="display:none;flex:1;overflow-y:auto"></div>
     </div>
   </div>
 
@@ -363,6 +366,7 @@ function pickTopic(type) {
 }
 
 function clearAnswer() { stopMic(); document.getElementById('answerBox').textContent = ''; }
+function clearFeedback() { document.getElementById('fbEmpty').style.display = 'flex'; document.getElementById('feedbackContent').style.display = 'none'; }
 
 async function submitAnswer() {
   var answer = document.getElementById('answerBox').textContent.trim();
