@@ -135,8 +135,10 @@ body {
 .fb-panel {
   background: var(--card); border-radius: var(--radius);
   border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 22px;
-  min-height: 300px; max-height: 520px; overflow-y: auto;
+  height: 100%; overflow-y: auto; display: flex; flex-direction: column;
 }
+.fb-empty { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+.fb-content { flex: 1; overflow-y: auto; }
 .fb-panel h3 { font-size: .85em; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
 .fb-empty { text-align: center; padding: 40px 20px; color: var(--sub); font-size: .8em; }
 .fb-empty .fb-icon { font-size: 2.5em; margin-bottom: 10px; display: block; }
@@ -257,13 +259,13 @@ body {
           清空点评
         </button>
       </div>
-      <div class="fb-empty" id="fbEmpty" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column">
+      <div class="fb-empty" id="fbEmpty">
         <span class="fb-icon">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </span>
         <p>提交回答后<br>AI 考官将在这里逐项点评</p>
       </div>
-      <div class="fb-content" id="feedbackContent" style="display:none;flex:1;overflow-y:auto"></div>
+      <div class="fb-content" id="feedbackContent" style="display:none"></div>
     </div>
   </div>
 
