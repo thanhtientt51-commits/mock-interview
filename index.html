@@ -136,7 +136,7 @@ body {
 .fb-panel {
   background: var(--card); border-radius: var(--radius);
   border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 22px;
-  height: 100%; max-height: 100%; overflow: hidden; display: flex; flex-direction: column;
+  overflow: hidden; display: flex; flex-direction: column;
 }
 .fb-empty { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
 .fb-content { flex: 1; overflow-y: auto; }
@@ -228,7 +228,7 @@ body {
 
   <!-- RIGHT: Feedback -->
   <div>
-    <div class="fb-panel" id="feedbackPanel" style="display:flex;flex-direction:column">
+    <div class="fb-panel" id="feedbackPanel" style="position:absolute;top:0;bottom:0;left:0;right:0;display:flex;flex-direction:column">
       <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
         <button class="btn btn-ghost" style="font-size:.72em;padding:4px 12px" onclick="clearFeedback()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
