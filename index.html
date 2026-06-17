@@ -47,15 +47,34 @@ body {
 
 .section-title { font-size: .75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--sub); margin-bottom: 14px; }
 
-/* Type Pills */
-.types-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.type-btn {
-  padding: 7px 15px; border-radius: 20px; font-size: .74em; font-weight: 600;
-  cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--sub);
-  transition: all .25s; letter-spacing: -.1px;
+/* Type Cards */
+.types-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.type-card {
+  background: var(--card); border-radius: var(--radius); padding: 18px 16px;
+  cursor: pointer; transition: all .3s cubic-bezier(.25,.1,.25,1);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; gap: 12px;
 }
-.type-btn:hover { border-color: var(--accent); color: var(--text); }
-.type-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-color: transparent; box-shadow: 0 2px 12px rgba(88,101,242,.2); }
+.type-card:hover { transform: translateY(-2px); border-color: rgba(88,101,242,.25); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+.type-card:active { transform: scale(.98); }
+.type-card .tc-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.type-card .tc-icon svg { width: 17px; height: 17px; }
+.tc-blue .tc-icon { background: #f0f4ff; } .tc-blue .tc-icon svg { color: #5865f2; stroke: #5865f2; }
+.tc-purple .tc-icon { background: #f6f0ff; } .tc-purple .tc-icon svg { color: #8b5cf6; stroke: #8b5cf6; }
+.tc-green .tc-icon { background: #f0fdf4; } .tc-green .tc-icon svg { color: #16a34a; stroke: #16a34a; }
+.tc-amber .tc-icon { background: #fffbeb; } .tc-amber .tc-icon svg { color: #d97706; stroke: #d97706; }
+.tc-red .tc-icon { background: #fef2f2; } .tc-red .tc-icon svg { color: #dc2626; stroke: #dc2626; }
+.tc-teal .tc-icon { background: #f0fdfa; } .tc-teal .tc-icon svg { color: #0d9488; stroke: #0d9488; }
+.type-card .tc-name { font-size: .82em; font-weight: 700; letter-spacing: -.2px; }
+.type-card .tc-desc { font-size: .66em; color: var(--sub); margin-top: 1px; }
+.type-card.active { border-color: var(--accent); box-shadow: 0 4px 16px rgba(88,101,242,.12); background: #fafaff; }
+.type-card.active .tc-icon { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+.type-card.active .tc-icon svg { color: #fff; stroke: #fff; }
+
+@media (max-width: 900px) { .types-grid { grid-template-columns: 1fr 1fr; } }
 
 /* Question Card */
 .q-card {
@@ -162,13 +181,31 @@ body {
 
   <!-- LEFT -->
   <div>
-    <div class="types-row">
-      <button class="type-btn active" onclick="pickTopic('all',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg> 随机出题</button>
-      <button class="type-btn" onclick="pickTopic('综合分析',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> 综合分析</button>
-      <button class="type-btn" onclick="pickTopic('组织管理',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> 组织管理</button>
-      <button class="type-btn" onclick="pickTopic('应急应变',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 应急应变</button>
-      <button class="type-btn" onclick="pickTopic('人际关系',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 人际关系</button>
-      <button class="type-btn" onclick="pickTopic('岗位匹配',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 岗位匹配</button>
+    <div class="types-grid">
+      <div class="type-card active tc-purple" onclick="pickTopic('all',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></div>
+        <div><div class="tc-name">随机出题</div><div class="tc-desc">系统自动分配面试题型</div></div>
+      </div>
+      <div class="type-card tc-blue" onclick="pickTopic('综合分析',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div><div class="tc-name">综合分析</div><div class="tc-desc">观点评述 · 现象分析</div></div>
+      </div>
+      <div class="type-card tc-green" onclick="pickTopic('组织管理',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+        <div><div class="tc-name">组织管理</div><div class="tc-desc">活动策划 · 统筹协调</div></div>
+      </div>
+      <div class="type-card tc-amber" onclick="pickTopic('应急应变',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div><div class="tc-name">应急应变</div><div class="tc-desc">突发处置 · 危机应对</div></div>
+      </div>
+      <div class="type-card tc-red" onclick="pickTopic('人际关系',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="tc-name">人际关系</div><div class="tc-desc">沟通协调 · 团队协作</div></div>
+      </div>
+      <div class="type-card tc-teal" onclick="pickTopic('岗位匹配',this)">
+        <div class="tc-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><div class="tc-name">岗位匹配</div><div class="tc-desc">自我认知 · 职业规划</div></div>
+      </div>
     </div>
 
     <div class="q-card">
@@ -318,7 +355,7 @@ function pickTopic(type, el) {
   document.getElementById('feedbackContent').style.display = 'none';
   document.getElementById('btnSubmit').disabled = false;
   document.getElementById('answerBox').textContent = '';
-  document.querySelectorAll('.type-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.type-card').forEach(function(b){b.classList.remove('active');});
   if (el) el.classList.add('active');
   var keys = Object.keys(QUESTIONS);
   if (type === 'all') { currentType = keys[Math.floor(Math.random()*keys.length)]; }
