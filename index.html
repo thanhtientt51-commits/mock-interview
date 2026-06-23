@@ -138,7 +138,7 @@ async function submitAnswer(){
   stopMic();var btn=document.getElementById('btnSubmit');btn.disabled=true;btn.innerHTML='⏳ AI 批改中...';
   document.getElementById('fbEmpty').style.display='none';document.getElementById('feedbackContent').style.display='block';
   document.getElementById('feedbackContent').innerHTML='<div class="loading-dots"><span></span><span></span><span></span></div>';
-  try{var res=await fetch(GK_PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:'你是公考面试考官，对以下回答点评。\n【题目】'+currentQuestion+'\n【类型】'+currentType+'\n【回答】'+a+'\n从内容深度(25)、逻辑结构(25)、语言表达(25)、实际价值(25)打分(满分100)。\n输出：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：(2-3)\n⚠️ 不足：(2-3)\n💪 建议：(3条)\n📝 参考要点：(2-3)'}],max_tokens:2000,temperature:.7})});
+  try{var res=await fetch(GK_PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:'你是公考面试考官，对以下回答点评。\n【题目】'+currentQuestion+'\n【类型】'+currentType+'\n【回答】'+a+'\n从内容深度(25)、逻辑结构(25)、语言表达(25)、实际价值(25)打分(满分100)。\n输出：\n💡 **总分：XX分**\n📊 各维度：内容X | 逻辑X | 表达X | 价值X\n✅ 优点：(2-3)\n⚠️ 不足：(2-3)\n💪 建议：(3条)\n📝 参考要点：(2-3)'}],max_tokens:1200,temperature:.7})});
   var d=await res.json(),r=d.choices[0].message.content,sc=r.match(/(\d{2,3})分/),v=sc?parseInt(sc[1]):0,cl=v>=80?'score-h':(v>=60?'score-m':'score-l');
   document.getElementById('feedbackContent').innerHTML=r.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/(\d{2,3})分/g,'<span class="score-tag '+cl+'">$1分</span>');}
   catch(e){document.getElementById('feedbackContent').innerHTML='网络错误，请重试'}
